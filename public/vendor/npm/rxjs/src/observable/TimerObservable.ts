@@ -1,11 +1,11 @@
-import {isNumeric} from '../util/isNumeric';
-import {Scheduler} from '../Scheduler';
-import {Observable} from '../Observable';
-import {async} from '../scheduler/async';
-import {isScheduler} from '../util/isScheduler';
-import {isDate} from '../util/isDate';
-import {TeardownLogic} from '../Subscription';
-import {Subscriber} from '../Subscriber';
+import { isNumeric } from '../util/isNumeric';
+import { IScheduler } from '../Scheduler';
+import { Observable } from '../Observable';
+import { async } from '../scheduler/async';
+import { isScheduler } from '../util/isScheduler';
+import { isDate } from '../util/isDate';
+import { TeardownLogic } from '../Subscription';
+import { Subscriber } from '../Subscriber';
 
 /**
  * We need this JSDoc comment for affecting ESDoc.
@@ -15,16 +15,51 @@ import {Subscriber} from '../Subscriber';
 export class TimerObservable extends Observable<number> {
 
   /**
-   * @param dueTime
-   * @param period
-   * @param scheduler
-   * @return {TimerObservable}
+   * Creates an Observable that starts emitting after an `initialDelay` and
+   * emits ever increasing numbers after each `period` of time thereafter.
+   *
+   * <span class="informal">Its like {@link interval}, but you can specify when
+   * should the emissions start.</span>
+   *
+   * <img src="./img/timer.png" width="100%">
+   *
+   * `timer` returns an Observable that emits an infinite sequence of ascending
+   * integers, with a constant interval of time, `period` of your choosing
+   * between those emissions. The first emission happens after the specified
+   * `initialDelay`. The initial delay may be a {@link Date}. By default, this
+   * operator uses the `async` IScheduler to provide a notion of time, but you
+   * may pass any IScheduler to it. If `period` is not specified, the output
+   * Observable emits only one value, `0`. Otherwise, it emits an infinite
+   * sequence.
+   *
+   * @example <caption>Emits ascending numbers, one every second (1000ms), starting after 3 seconds</caption>
+   * var numbers = Rx.Observable.timer(3000, 1000);
+   * numbers.subscribe(x => console.log(x));
+   *
+   * @example <caption>Emits one number after five seconds</caption>
+   * var numbers = Rx.Observable.timer(5000);
+   * numbers.subscribe(x => console.log(x));
+   *
+   * @see {@link interval}
+   * @see {@link delay}
+   *
+   * @param {number|Date} initialDelay The initial delay time to wait before
+   * emitting the first value of `0`.
+   * @param {number} [period] The period of time between emissions of the
+   * subsequent numbers.
+   * @param {Scheduler} [scheduler=async] The IScheduler to use for scheduling
+   * the emission of values, and providing a notion of "time".
+   * @return {Observable} An Observable that emits a `0` after the
+   * `initialDelay` and ever increasing numbers after each `period` of time
+   * thereafter.
    * @static true
    * @name timer
    * @owner Observable
    */
-  static create(dueTime: number | Date = 0, period?: number | Scheduler, scheduler?: Scheduler): Observable<number> {
-    return new TimerObservable(dueTime, period, scheduler);
+  static create(initialDelay: number | Date = 0,
+                period?: number | IScheduler,
+                scheduler?: IScheduler): Observable<number> {
+    return new TimerObservable(initialDelay, period, scheduler);
   }
 
   static dispatch(state: any) {
@@ -34,7 +69,7 @@ export class TimerObservable extends Observable<number> {
 
     subscriber.next(index);
 
-    if (subscriber.isUnsubscribed) {
+    if (subscriber.closed) {
       return;
     } else if (period === -1) {
       return subscriber.complete();
@@ -46,17 +81,17 @@ export class TimerObservable extends Observable<number> {
 
   private period: number = -1;
   private dueTime: number = 0;
-  private scheduler: Scheduler;
+  private scheduler: IScheduler;
 
   constructor(dueTime: number | Date = 0,
-              period?: number | Scheduler,
-              scheduler?: Scheduler) {
+              period?: number | IScheduler,
+              scheduler?: IScheduler) {
     super();
 
     if (isNumeric(period)) {
       this.period = Number(period) < 1 && 1 || Number(period);
     } else if (isScheduler(period)) {
-      scheduler = <Scheduler> period;
+      scheduler = <IScheduler> period;
     }
 
     if (!isScheduler(scheduler)) {

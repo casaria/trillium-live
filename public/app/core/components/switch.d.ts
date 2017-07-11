@@ -5,6 +5,7 @@ export declare class SwitchCtrl {
     checked: any;
     show: any;
     id: any;
+    label: string;
     /** @ngInject */
     constructor($scope: any, $timeout: any);
     internalOnChange(): any;

@@ -10,7 +10,6 @@ export declare class QueryRowCtrl {
     collapsed: any;
     constructor();
     toggleHideQuery(): void;
-    getNextQueryLetter(): any;
     toggleCollapse(init: any): void;
     toggleEditorMode(): void;
     removeQuery(): void;

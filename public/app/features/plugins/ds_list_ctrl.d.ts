@@ -5,9 +5,11 @@ export declare class DataSourcesCtrl {
     private $http;
     private backendSrv;
     private datasourceSrv;
+    private navModelSrv;
     datasources: any;
+    navModel: any;
     /** @ngInject */
-    constructor($scope: any, $location: any, $http: any, backendSrv: any, datasourceSrv: any);
+    constructor($scope: any, $location: any, $http: any, backendSrv: any, datasourceSrv: any, navModelSrv: any);
     removeDataSourceConfirmed(ds: any): void;
     removeDataSource(ds: any): void;
 }

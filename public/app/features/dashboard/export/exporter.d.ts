@@ -2,5 +2,5 @@
 export declare class DashboardExporter {
     private datasourceSrv;
     constructor(datasourceSrv: any);
-    makeExportable(dash: any): Promise<{}>;
+    makeExportable(dashboard: any): Promise<{}>;
 }

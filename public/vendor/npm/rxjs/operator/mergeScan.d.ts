@@ -12,17 +12,19 @@ import { InnerSubscriber } from '../InnerSubscriber';
  * @method mergeScan
  * @owner Observable
  */
-export declare function mergeScan<T, R>(project: (acc: R, value: T) => Observable<R>, seed: R, concurrent?: number): Observable<R>;
-export interface MergeScanSignature<T> {
-    <R>(project: (acc: R, value: T) => Observable<R>, seed: R, concurrent?: number): Observable<R>;
-}
+export declare function mergeScan<T, R>(this: Observable<T>, project: (acc: R, value: T) => Observable<R>, seed: R, concurrent?: number): Observable<R>;
 export declare class MergeScanOperator<T, R> implements Operator<T, R> {
     private project;
     private seed;
     private concurrent;
     constructor(project: (acc: R, value: T) => Observable<R>, seed: R, concurrent: number);
-    call(subscriber: Subscriber<R>): Subscriber<T>;
+    call(subscriber: Subscriber<R>, source: any): any;
 }
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 export declare class MergeScanSubscriber<T, R> extends OuterSubscriber<T, R> {
     private project;
     private acc;

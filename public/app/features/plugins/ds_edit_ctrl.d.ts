@@ -6,6 +6,7 @@ export declare class DataSourceEditCtrl {
     private $routeParams;
     private $location;
     private datasourceSrv;
+    private navModelSrv;
     isNew: boolean;
     datasources: any[];
     current: any;
@@ -15,14 +16,17 @@ export declare class DataSourceEditCtrl {
     tabIndex: number;
     hasDashboards: boolean;
     editForm: any;
+    gettingStarted: boolean;
+    navModel: any;
     /** @ngInject */
-    constructor($scope: any, $q: any, backendSrv: any, $routeParams: any, $location: any, datasourceSrv: any);
+    constructor($scope: any, $q: any, backendSrv: any, $routeParams: any, $location: any, datasourceSrv: any, navModelSrv: any);
+    initNewDatasourceModel(): void;
     loadDatasourceTypes(): any;
     getDatasourceById(id: any): void;
     typeChanged(): any;
     updateFrontendSettings(): any;
     testDatasource(): void;
-    saveChanges(test: any): any;
+    saveChanges(): any;
     confirmDelete(): void;
     delete(s: any): void;
 }

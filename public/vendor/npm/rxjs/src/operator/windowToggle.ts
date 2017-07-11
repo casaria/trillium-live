@@ -1,30 +1,60 @@
-import {Operator} from '../Operator';
-import {Subscriber} from '../Subscriber';
-import {Observable} from '../Observable';
-import {Subject} from '../Subject';
-import {Subscription} from '../Subscription';
+import { Operator } from '../Operator';
+import { Subscriber } from '../Subscriber';
+import { Observable } from '../Observable';
+import { Subject } from '../Subject';
+import { Subscription } from '../Subscription';
 
-import {tryCatch} from '../util/tryCatch';
-import {errorObject} from '../util/errorObject';
+import { tryCatch } from '../util/tryCatch';
+import { errorObject } from '../util/errorObject';
 
-import {OuterSubscriber} from '../OuterSubscriber';
-import {InnerSubscriber} from '../InnerSubscriber';
-import {subscribeToResult} from '../util/subscribeToResult';
+import { OuterSubscriber } from '../OuterSubscriber';
+import { InnerSubscriber } from '../InnerSubscriber';
+import { subscribeToResult } from '../util/subscribeToResult';
 
 /**
- * @param openings
- * @param closingSelector
- * @return {Observable<Observable<any>>|WebSocketSubject<T>|Observable<T>}
+ * Branch out the source Observable values as a nested Observable starting from
+ * an emission from `openings` and ending when the output of `closingSelector`
+ * emits.
+ *
+ * <span class="informal">It's like {@link bufferToggle}, but emits a nested
+ * Observable instead of an array.</span>
+ *
+ * <img src="./img/windowToggle.png" width="100%">
+ *
+ * Returns an Observable that emits windows of items it collects from the source
+ * Observable. The output Observable emits windows that contain those items
+ * emitted by the source Observable between the time when the `openings`
+ * Observable emits an item and when the Observable returned by
+ * `closingSelector` emits an item.
+ *
+ * @example <caption>Every other second, emit the click events from the next 500ms</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var openings = Rx.Observable.interval(1000);
+ * var result = clicks.windowToggle(openings, i =>
+ *   i % 2 ? Rx.Observable.interval(500) : Rx.Observable.empty()
+ * ).mergeAll();
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link window}
+ * @see {@link windowCount}
+ * @see {@link windowTime}
+ * @see {@link windowWhen}
+ * @see {@link bufferToggle}
+ *
+ * @param {Observable<O>} openings An observable of notifications to start new
+ * windows.
+ * @param {function(value: O): Observable} closingSelector A function that takes
+ * the value emitted by the `openings` observable and returns an Observable,
+ * which, when it emits (either `next` or `complete`), signals that the
+ * associated window should complete.
+ * @return {Observable<Observable<T>>} An observable of windows, which in turn
+ * are Observables.
  * @method windowToggle
  * @owner Observable
  */
-export function windowToggle<T, O>(openings: Observable<O>,
+export function windowToggle<T, O>(this: Observable<T>, openings: Observable<O>,
                                    closingSelector: (openValue: O) => Observable<any>): Observable<Observable<T>> {
   return this.lift(new WindowToggleOperator<T, O>(openings, closingSelector));
-}
-
-export interface WindowToggleSignature<T> {
-  <O>(openings: Observable<O>, closingSelector: (openValue: O) => Observable<any>): Observable<Observable<T>>;
 }
 
 class WindowToggleOperator<T, O> implements Operator<T, Observable<T>> {
@@ -33,10 +63,10 @@ class WindowToggleOperator<T, O> implements Operator<T, Observable<T>> {
               private closingSelector: (openValue: O) => Observable<any>) {
   }
 
-  call(subscriber: Subscriber<Observable<T>>): Subscriber<T> {
-    return new WindowToggleSubscriber(
+  call(subscriber: Subscriber<Observable<T>>, source: any): any {
+    return source.subscribe(new WindowToggleSubscriber(
       subscriber, this.openings, this.closingSelector
-    );
+    ));
   }
 }
 
@@ -45,6 +75,11 @@ interface WindowContext<T> {
   subscription: Subscription;
 }
 
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 class WindowToggleSubscriber<T, O> extends OuterSubscriber<T, any> {
   private contexts: WindowContext<T>[] = [];
   private openSubscription: Subscription;
@@ -132,7 +167,7 @@ class WindowToggleSubscriber<T, O> extends OuterSubscriber<T, any> {
         this.contexts.push(context);
         const innerSubscription = subscribeToResult(this, closingNotifier, context);
 
-        if (innerSubscription.isUnsubscribed) {
+        if (innerSubscription.closed) {
           this.closeWindow(this.contexts.length - 1);
         } else {
           (<any> innerSubscription).context = context;

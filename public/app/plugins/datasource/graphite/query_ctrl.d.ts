@@ -1,4 +1,6 @@
 /// <reference path="../../../../../public/app/headers/common.d.ts" />
+import './add_graphite_func';
+import './func_editor';
 import { QueryCtrl } from 'app/plugins/sdk';
 export declare class GraphiteQueryCtrl extends QueryCtrl {
     private uiSegmentSrv;
@@ -11,7 +13,7 @@ export declare class GraphiteQueryCtrl extends QueryCtrl {
     toggleEditorMode(): void;
     parseTarget(): void;
     addFunctionParameter(func: any, value: any, index: any, shiftBack: any): void;
-    parseTargeRecursive(astNode: any, func: any, index: any): any;
+    parseTargetRecursive(astNode: any, func: any, index: any): any;
     getSegmentPathUpTo(index: any): any;
     checkOtherSegments(fromIndex: any): any;
     setSegmentFocus(segmentIndex: any): void;
@@ -19,6 +21,8 @@ export declare class GraphiteQueryCtrl extends QueryCtrl {
     getAltSegments(index: any): any;
     segmentValueChanged(segment: any, segmentIndex: any): any;
     targetTextChanged(): void;
+    updateModelTarget(): void;
+    updateRenderedTarget(target: any): void;
     targetChanged(): void;
     removeFunction(func: any): void;
     addFunction(funcDef: any): void;

@@ -1,6 +1,6 @@
-import { IntervalObservable } from '../../observable/IntervalObservable';
+import { interval as staticInterval } from '../../observable/interval';
 declare module '../../Observable' {
     namespace Observable {
-        let interval: typeof IntervalObservable.create;
+        let interval: typeof staticInterval;
     }
 }

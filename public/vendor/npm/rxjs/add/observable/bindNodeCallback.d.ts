@@ -1,6 +1,6 @@
-import { BoundNodeCallbackObservable } from '../../observable/BoundNodeCallbackObservable';
+import { bindNodeCallback as staticBindNodeCallback } from '../../observable/bindNodeCallback';
 declare module '../../Observable' {
     namespace Observable {
-        let bindNodeCallback: typeof BoundNodeCallbackObservable.create;
+        let bindNodeCallback: typeof staticBindNodeCallback;
     }
 }

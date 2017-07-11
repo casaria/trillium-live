@@ -6,6 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Subscriber_1 = require('../Subscriber');
 var EmptyError_1 = require('../util/EmptyError');
+/* tslint:disable:max-line-length */
 /**
  * Returns an Observable that emits only the last item emitted by the source Observable.
  * It optionally takes a predicate function as a parameter, in which case, rather than emitting
@@ -14,6 +15,8 @@ var EmptyError_1 = require('../util/EmptyError');
  *
  * <img src="./img/last.png" width="100%">
  *
+ * @throws {EmptyError} Delivers an EmptyError to the Observer's `error`
+ * callback if the Observable completes before any `next` notification was sent.
  * @param {function} predicate - the condition any source emitted item has to satisfy.
  * @return {Observable} an Observable that emits only the last item satisfying the given condition
  * from the source, or an NoSuchElementException if no such items are emitted.
@@ -32,11 +35,16 @@ var LastOperator = (function () {
         this.defaultValue = defaultValue;
         this.source = source;
     }
-    LastOperator.prototype.call = function (observer) {
-        return new LastSubscriber(observer, this.predicate, this.resultSelector, this.defaultValue, this.source);
+    LastOperator.prototype.call = function (observer, source) {
+        return source.subscribe(new LastSubscriber(observer, this.predicate, this.resultSelector, this.defaultValue, this.source));
     };
     return LastOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var LastSubscriber = (function (_super) {
     __extends(LastSubscriber, _super);
     function LastSubscriber(destination, predicate, resultSelector, defaultValue, source) {

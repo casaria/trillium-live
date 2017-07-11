@@ -1,6 +1,6 @@
-import { FromObservable } from '../../observable/FromObservable';
+import { from as staticFrom } from '../../observable/from';
 declare module '../../Observable' {
     namespace Observable {
-        let from: typeof FromObservable.create;
+        let from: typeof staticFrom;
     }
 }

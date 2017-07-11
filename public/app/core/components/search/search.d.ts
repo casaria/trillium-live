@@ -16,10 +16,11 @@ export declare class SearchCtrl {
     showImport: boolean;
     dismiss: any;
     ignoreClose: any;
+    openCompleted: boolean;
     /** @ngInject */
     constructor($scope: any, $location: any, $timeout: any, backendSrv: any, contextSrv: any, $rootScope: any);
     closeSearch(): void;
-    openSearch(): void;
+    openSearch(evt: any, payload: any): any;
     keyDown(evt: any): void;
     moveSelection(direction: any): void;
     searchDashboards(): any;
@@ -36,4 +37,5 @@ export declare function searchDirective(): {
     controller: typeof SearchCtrl;
     bindToController: boolean;
     controllerAs: string;
+    scope: {};
 };

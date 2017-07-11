@@ -5,6 +5,7 @@ export declare class PlaylistEditCtrl {
     private backendSrv;
     private $location;
     private $route;
+    private navModelSrv;
     filteredDashboards: any;
     filteredTags: any;
     searchQuery: string;
@@ -13,8 +14,9 @@ export declare class PlaylistEditCtrl {
     playlistItems: any;
     dashboardresult: any;
     tagresult: any;
+    navModel: any;
     /** @ngInject */
-    constructor($scope: any, playlistSrv: any, backendSrv: any, $location: any, $route: any);
+    constructor($scope: any, playlistSrv: any, backendSrv: any, $location: any, $route: any, navModelSrv: any);
     filterFoundPlaylistItems(): void;
     addPlaylistItem(playlistItem: any): void;
     addTagPlaylistItem(tag: any): void;

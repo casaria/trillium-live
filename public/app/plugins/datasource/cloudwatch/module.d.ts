@@ -1,8 +1,7 @@
+import './query_parameter_ctrl';
 import { CloudWatchDatasource } from './datasource';
 import { CloudWatchQueryCtrl } from './query_ctrl';
-declare class CloudWatchConfigCtrl {
-    static templateUrl: string;
-}
+import { CloudWatchConfigCtrl } from './config_ctrl';
 declare class CloudWatchAnnotationsQueryCtrl {
     static templateUrl: string;
 }

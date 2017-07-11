@@ -1,8 +1,9 @@
-import {Observable} from '../Observable';
-import {Operator} from '../Operator';
-import {Subscriber} from '../Subscriber';
-import {Observer} from '../Observer';
-import {EmptyError} from '../util/EmptyError';
+import { Observable } from '../Observable';
+import { Operator } from '../Operator';
+import { Subscriber } from '../Subscriber';
+import { Observer } from '../Observer';
+import { EmptyError } from '../util/EmptyError';
+import { TeardownLogic } from '../Subscription';
 
 /**
  * Returns an Observable that emits the single item emitted by the source Observable that matches a specified
@@ -11,6 +12,8 @@ import {EmptyError} from '../util/EmptyError';
  *
  * <img src="./img/single.png" width="100%">
  *
+ * @throws {EmptyError} Delivers an EmptyError to the Observer's `error`
+ * callback if the Observable completes before any `next` notification was sent.
  * @param {Function} a predicate function to evaluate items emitted by the source Observable.
  * @return {Observable<T>} an Observable that emits the single item emitted by the source Observable that matches
  * the predicate.
@@ -18,12 +21,8 @@ import {EmptyError} from '../util/EmptyError';
  * @method single
  * @owner Observable
  */
-export function single<T>(predicate?: (value: T, index: number, source: Observable<T>) => boolean): Observable<T> {
+export function single<T>(this: Observable<T>, predicate?: (value: T, index: number, source: Observable<T>) => boolean): Observable<T> {
   return this.lift(new SingleOperator(predicate, this));
-}
-
-export interface SingleSignature<T> {
-  (predicate?: (value: T, index: number, source: Observable<T>) => boolean): Observable<T>;
 }
 
 class SingleOperator<T> implements Operator<T, T> {
@@ -31,11 +30,16 @@ class SingleOperator<T> implements Operator<T, T> {
               private source?: Observable<T>) {
   }
 
-  call(subscriber: Subscriber<T>): Subscriber<T> {
-    return new SingleSubscriber(subscriber, this.predicate, this.source);
+  call(subscriber: Subscriber<T>, source: any): TeardownLogic {
+    return source.subscribe(new SingleSubscriber(subscriber, this.predicate, this.source));
   }
 }
 
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 class SingleSubscriber<T> extends Subscriber<T> {
   private seenValue: boolean = false;
   private singleValue: T;

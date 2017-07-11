@@ -7,6 +7,8 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Subscriber_1 = require('../Subscriber');
 var Notification_1 = require('../Notification');
 /**
+ * @see {@link Notification}
+ *
  * @param scheduler
  * @param delay
  * @return {Observable<R>|WebSocketSubject<T>|Observable<T>}
@@ -24,12 +26,17 @@ var ObserveOnOperator = (function () {
         this.scheduler = scheduler;
         this.delay = delay;
     }
-    ObserveOnOperator.prototype.call = function (subscriber) {
-        return new ObserveOnSubscriber(subscriber, this.scheduler, this.delay);
+    ObserveOnOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new ObserveOnSubscriber(subscriber, this.scheduler, this.delay));
     };
     return ObserveOnOperator;
 }());
 exports.ObserveOnOperator = ObserveOnOperator;
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var ObserveOnSubscriber = (function (_super) {
     __extends(ObserveOnSubscriber, _super);
     function ObserveOnSubscriber(destination, scheduler, delay) {
@@ -38,12 +45,16 @@ var ObserveOnSubscriber = (function (_super) {
         this.scheduler = scheduler;
         this.delay = delay;
     }
-    ObserveOnSubscriber.dispatch = function (_a) {
-        var notification = _a.notification, destination = _a.destination;
+    ObserveOnSubscriber.dispatch = function (arg) {
+        var notification = arg.notification, destination = arg.destination, subscription = arg.subscription;
         notification.observe(destination);
+        if (subscription) {
+            subscription.unsubscribe();
+        }
     };
     ObserveOnSubscriber.prototype.scheduleMessage = function (notification) {
-        this.add(this.scheduler.schedule(ObserveOnSubscriber.dispatch, this.delay, new ObserveOnMessage(notification, this.destination)));
+        var message = new ObserveOnMessage(notification, this.destination);
+        message.subscription = this.add(this.scheduler.schedule(ObserveOnSubscriber.dispatch, this.delay, message));
     };
     ObserveOnSubscriber.prototype._next = function (value) {
         this.scheduleMessage(Notification_1.Notification.createNext(value));
@@ -64,4 +75,5 @@ var ObserveOnMessage = (function () {
     }
     return ObserveOnMessage;
 }());
+exports.ObserveOnMessage = ObserveOnMessage;
 //# sourceMappingURL=observeOn.js.map

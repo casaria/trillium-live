@@ -2,6 +2,7 @@
 import { Emitter } from 'app/core/core';
 export declare class PanelCtrl {
     panel: any;
+    error: any;
     row: any;
     dashboard: any;
     editorTabIndex: number;
@@ -47,5 +48,7 @@ export declare class PanelCtrl {
     editPanelJson(): void;
     replacePanel(newPanel: any, oldPanel: any): void;
     sharePanel(): void;
+    getInfoMode(): "" | "error" | "info" | "links";
+    getInfoContent(options: any): string;
     openInspector(): void;
 }

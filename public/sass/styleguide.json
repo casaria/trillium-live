@@ -22,10 +22,9 @@
         "$pink": "#FF4444",
         "$purple": "#9933CC",
         "$variable": "#32D1DF",
-        "$orange": "#dF7518",
-        "$brand-text-highlight": "#f7941d",
+        "$orange": "#eb7b18",
         "$online": "#10a345",
-        "$warn": "#ffc03c",
+        "$warn": "#F79520",
         "$critical": "#ed2e18",
         "$component-active-color": "#fff",
         "$divider-border-color": "#555",
@@ -38,7 +37,18 @@
         "$dropdownDividerBottom": "#444",
         "$wellBackground": "#131517",
         "$errorText": "#E84D4D",
-        "$successText": "#12D95A"
+        "$successText": "#12D95A",
+        "$json-explorer-string-color": "#23d662",
+        "$json-explorer-null-color": "#EEC97D",
+        "$json-explorer-function-color": "#FD48CB",
+        "$json-explorer-toggler-color": "#45376F",
+        "$json-explorer-bracket-color": "#9494FF",
+        "$json-explorer-key-color": "#23A0DB",
+        "$json-explorer-url-color": "#027BFF",
+        "$diff-json-added": "#457740",
+        "$diff-json-deleted": "#a04338",
+        "$diff-json-old": "#a04338",
+        "$diff-json-new": "#457740"
     },
     "light": {
         "$black": "#000",
@@ -64,7 +74,6 @@
         "$pink": "#E671B8",
         "$purple": "#9954BB",
         "$variable": "#2AB2E4",
-        "$brand-text-highlight": "#f7941d",
         "$online": "#01A64F",
         "$warn": "#F79520",
         "$critical": "#EC2128",
@@ -73,6 +82,12 @@
         "$navbarText": "#666",
         "$navbarLinkColor": "#666",
         "$navbarLinkColorHover": "#333",
-        "$navbarLinkColorActive": "#555"
+        "$navbarLinkColorActive": "#555",
+        "$json-explorer-null-color": "#855A00",
+        "$json-explorer-function-color": "#FF20ED",
+        "$json-explorer-toggler-color": "#45376F",
+        "$json-explorer-key-color": "#00008B",
+        "$diff-json-old": "#5a372a",
+        "$diff-json-new": "#664e33"
     }
 }

@@ -1,6 +1,6 @@
-import { TimerObservable } from '../../observable/TimerObservable';
+import { timer as staticTimer } from '../../observable/timer';
 declare module '../../Observable' {
     namespace Observable {
-        let timer: typeof TimerObservable.create;
+        let timer: typeof staticTimer;
     }
 }

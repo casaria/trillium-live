@@ -1,6 +1,6 @@
-import { PromiseObservable } from '../../observable/PromiseObservable';
+import { fromPromise as staticFromPromise } from '../../observable/fromPromise';
 declare module '../../Observable' {
     namespace Observable {
-        let fromPromise: typeof PromiseObservable.create;
+        let fromPromise: typeof staticFromPromise;
     }
 }

@@ -1,6 +1,6 @@
-import { FromEventPatternObservable } from '../../observable/FromEventPatternObservable';
+import { fromEventPattern as staticFromEventPattern } from '../../observable/fromEventPattern';
 declare module '../../Observable' {
     namespace Observable {
-        let fromEventPattern: typeof FromEventPatternObservable.create;
+        let fromEventPattern: typeof staticFromEventPattern;
     }
 }

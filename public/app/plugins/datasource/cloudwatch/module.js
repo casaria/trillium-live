@@ -1,4 +1,4 @@
-/*! grafana - v3.1.0-1468321182 - 2016-07-12
- * Copyright (c) 2016 Torkel Ödegaard; Licensed Apache-2.0 */
+/*! grafana - v4.4.0 - 2017-07-04
+ * Copyright (c) 2017 Torkel Ödegaard; Licensed Apache-2.0 */
 
-System.register(["./query_parameter_ctrl","./datasource","./query_ctrl"],function(a){var b,c,d,e;return{setters:[function(a){},function(a){b=a},function(a){c=a}],execute:function(){d=function(){function a(){}return a.templateUrl="partials/config.html",a}(),e=function(){function a(){}return a.templateUrl="partials/annotations.editor.html",a}(),a("Datasource",b.CloudWatchDatasource),a("QueryCtrl",c.CloudWatchQueryCtrl),a("ConfigCtrl",d),a("AnnotationsQueryCtrl",e)}}});
+System.register(["./query_parameter_ctrl","./datasource","./query_ctrl","./config_ctrl"],function(a,b){"use strict";var c,d,e,f;b&&b.id;return{setters:[function(a){},function(a){c=a},function(a){d=a},function(a){e=a}],execute:function(){a("Datasource",c.CloudWatchDatasource),a("QueryCtrl",d.CloudWatchQueryCtrl),a("ConfigCtrl",e.CloudWatchConfigCtrl),f=function(){function a(){}return a}(),f.templateUrl="partials/annotations.editor.html",a("AnnotationsQueryCtrl",f)}}});

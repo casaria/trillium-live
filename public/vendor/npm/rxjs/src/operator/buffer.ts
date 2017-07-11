@@ -1,10 +1,10 @@
-import {Operator} from '../Operator';
-import {Subscriber} from '../Subscriber';
-import {Observable} from '../Observable';
+import { Operator } from '../Operator';
+import { Subscriber } from '../Subscriber';
+import { Observable } from '../Observable';
 
-import {OuterSubscriber} from '../OuterSubscriber';
-import {InnerSubscriber} from '../InnerSubscriber';
-import {subscribeToResult} from '../util/subscribeToResult';
+import { OuterSubscriber } from '../OuterSubscriber';
+import { InnerSubscriber } from '../InnerSubscriber';
+import { subscribeToResult } from '../util/subscribeToResult';
 
 /**
  * Buffers the source Observable values until `closingNotifier` emits.
@@ -38,12 +38,8 @@ import {subscribeToResult} from '../util/subscribeToResult';
  * @method buffer
  * @owner Observable
  */
-export function buffer<T>(closingNotifier: Observable<any>): Observable<T[]> {
+export function buffer<T>(this: Observable<T>, closingNotifier: Observable<any>): Observable<T[]> {
   return this.lift(new BufferOperator<T>(closingNotifier));
-}
-
-export interface BufferSignature<T> {
-  (closingNotifier: Observable<any>): Observable<T[]>;
 }
 
 class BufferOperator<T> implements Operator<T, T[]> {
@@ -51,11 +47,16 @@ class BufferOperator<T> implements Operator<T, T[]> {
   constructor(private closingNotifier: Observable<any>) {
   }
 
-  call(subscriber: Subscriber<T[]>): Subscriber<T> {
-    return new BufferSubscriber(subscriber, this.closingNotifier);
+  call(subscriber: Subscriber<T[]>, source: any): any {
+    return source.subscribe(new BufferSubscriber(subscriber, this.closingNotifier));
   }
 }
 
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 class BufferSubscriber<T> extends OuterSubscriber<T, any> {
   private buffer: T[] = [];
 

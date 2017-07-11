@@ -1,4 +1,6 @@
 /// <reference path="../../../../../public/app/headers/common.d.ts" />
+import './bucket_agg';
+import './metric_agg';
 import { QueryCtrl } from 'app/plugins/sdk';
 export declare class ElasticQueryCtrl extends QueryCtrl {
     private $rootScope;

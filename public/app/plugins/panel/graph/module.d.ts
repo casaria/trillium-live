@@ -1,18 +1,23 @@
 /// <reference path="../../../../../public/app/headers/common.d.ts" />
-import TimeSeries from 'app/core/time_series2';
+import './graph';
+import './legend';
+import './series_overrides_ctrl';
+import './thresholds_form';
 import { MetricsPanelCtrl } from 'app/plugins/sdk';
+import { DataProcessor } from './data_processor';
 declare class GraphCtrl extends MetricsPanelCtrl {
     private annotationsSrv;
     static template: string;
     hiddenSeries: any;
     seriesList: any;
-    logScales: any;
-    unitFormats: any;
+    dataList: any;
+    annotations: any;
+    alertState: any;
     annotationsPromise: any;
-    datapointsCount: number;
-    datapointsOutside: boolean;
-    datapointsWarning: boolean;
+    dataWarning: any;
     colors: any;
+    subTabIndex: number;
+    processor: DataProcessor;
     panelDefaults: {
         datasource: any;
         renderer: string;
@@ -26,16 +31,17 @@ declare class GraphCtrl extends MetricsPanelCtrl {
         }[];
         xaxis: {
             show: boolean;
-        };
-        grid: {
-            threshold1: any;
-            threshold2: any;
-            threshold1Color: string;
-            threshold2Color: string;
+            mode: string;
+            name: any;
+            values: any[];
+            buckets: any;
         };
         lines: boolean;
         fill: number;
         linewidth: number;
+        dashes: boolean;
+        dashLength: number;
+        spaceLength: number;
         points: boolean;
         pointradius: number;
         bars: boolean;
@@ -56,25 +62,23 @@ declare class GraphCtrl extends MetricsPanelCtrl {
             value_type: string;
             shared: boolean;
             sort: number;
-            msResolution: boolean;
         };
         timeFrom: any;
         timeShift: any;
         targets: {}[];
         aliasColors: {};
         seriesOverrides: any[];
+        thresholds: any[];
     };
     /** @ngInject */
     constructor($scope: any, $injector: any, annotationsSrv: any);
     onInitEditMode(): void;
     onInitPanelActions(actions: any): void;
-    setUnitFormat(axis: any, subItem: any): void;
     issueQueries(datasource: any): any;
     zoomOut(evt: any): void;
     onDataSnapshotLoad(snapshotData: any): void;
     onDataError(err: any): void;
     onDataReceived(dataList: any): void;
-    seriesHandler(seriesData: any, index: any): TimeSeries;
     onRender(): void;
     changeSeriesColor(series: any, color: any): void;
     toggleSeries(serie: any, event: any): void;
@@ -85,6 +89,5 @@ declare class GraphCtrl extends MetricsPanelCtrl {
     toggleLegend(): void;
     legendValuesOptionChanged(): void;
     exportCsv(): void;
-    exportCsvColumns(): void;
 }
 export { GraphCtrl, GraphCtrl as PanelCtrl };

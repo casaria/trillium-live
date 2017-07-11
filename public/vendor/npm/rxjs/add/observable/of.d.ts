@@ -1,6 +1,6 @@
-import { ArrayObservable } from '../../observable/ArrayObservable';
+import { of as staticOf } from '../../observable/of';
 declare module '../../Observable' {
     namespace Observable {
-        let of: typeof ArrayObservable.of;
+        let of: typeof staticOf;
     }
 }

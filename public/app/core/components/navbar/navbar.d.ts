@@ -1,9 +1,16 @@
 /// <reference path="../../../../../public/app/headers/common.d.ts" />
+import { NavModel, NavModelItem } from '../../nav_model_srv';
 export declare class NavbarCtrl {
     private $scope;
+    private $rootScope;
     private contextSrv;
+    model: NavModel;
+    section: NavModelItem;
+    hasMenu: boolean;
     /** @ngInject */
-    constructor($scope: any, contextSrv: any);
+    constructor($scope: any, $rootScope: any, contextSrv: any);
+    showSearch(): void;
+    navItemClicked(navItem: any, evt: any): void;
 }
 export declare function navbarDirective(): {
     restrict: string;
@@ -13,9 +20,7 @@ export declare function navbarDirective(): {
     transclude: boolean;
     controllerAs: string;
     scope: {
-        title: string;
-        titleUrl: string;
-        iconUrl: string;
+        model: string;
     };
-    link: (scope: any, elem: any, attrs: any, ctrl: any) => void;
+    link: (scope: any, elem: any) => void;
 };

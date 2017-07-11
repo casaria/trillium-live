@@ -5,13 +5,8 @@ export declare class TablePanelEditorCtrl {
     panel: any;
     panelCtrl: any;
     transformers: any;
-    colorModes: any;
-    columnStyles: any;
-    columnTypes: any;
     fontSizes: any;
-    dateFormats: any;
     addColumnSegment: any;
-    unitFormats: any;
     getColumnNames: any;
     /** @ngInject */
     constructor($scope: any, $q: any, uiSegmentSrv: any);
@@ -20,10 +15,6 @@ export declare class TablePanelEditorCtrl {
     transformChanged(): void;
     render(): void;
     removeColumn(column: any): void;
-    setUnitFormat(column: any, subItem: any): void;
-    addColumnStyle(): void;
-    removeColumnStyle(style: any): void;
-    invertColorOrder(index: any): void;
 }
 /** @ngInject */
 export declare function tablePanelEditor($q: any, uiSegmentSrv: any): {

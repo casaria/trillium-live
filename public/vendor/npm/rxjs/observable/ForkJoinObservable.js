@@ -21,6 +21,7 @@ var ForkJoinObservable = (function (_super) {
         this.sources = sources;
         this.resultSelector = resultSelector;
     }
+    /* tslint:enable:max-line-length */
     /**
      * @param sources
      * @return {any}
@@ -56,6 +57,11 @@ var ForkJoinObservable = (function (_super) {
     return ForkJoinObservable;
 }(Observable_1.Observable));
 exports.ForkJoinObservable = ForkJoinObservable;
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var ForkJoinSubscriber = (function (_super) {
     __extends(ForkJoinSubscriber, _super);
     function ForkJoinSubscriber(destination, sources, resultSelector) {

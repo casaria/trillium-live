@@ -2,6 +2,7 @@
 export declare class SnapshotsCtrl {
     private $rootScope;
     private backendSrv;
+    navModel: any;
     snapshots: any;
     /** @ngInject */
     constructor($rootScope: any, backendSrv: any);

@@ -5,6 +5,7 @@ declare var _default: {
         Aggregations: any[];
         Selectors: any[];
         Transformations: any[];
+        Predictors: any[];
         Math: any[];
         Aliasing: any[];
         Fields: any[];

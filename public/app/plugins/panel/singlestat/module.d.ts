@@ -1,15 +1,22 @@
 /// <reference path="../../../../../public/app/headers/common.d.ts" />
+import 'jquery.flot';
+import 'jquery.flot.gauge';
 import TimeSeries from 'app/core/time_series2';
 import { MetricsPanelCtrl } from 'app/plugins/sdk';
 declare class SingleStatCtrl extends MetricsPanelCtrl {
     private $location;
     private linkSrv;
     static templateUrl: string;
+    dataType: string;
     series: any[];
     data: any;
     fontSizes: any[];
     unitFormats: any[];
     invalidGaugeRange: boolean;
+    panel: any;
+    events: any;
+    valueNameOptions: any[];
+    tableColumnOptions: any;
     panelDefaults: {
         links: any[];
         datasource: any;
@@ -58,6 +65,7 @@ declare class SingleStatCtrl extends MetricsPanelCtrl {
             thresholdMarkers: boolean;
             thresholdLabels: boolean;
         };
+        tableColumn: string;
     };
     /** @ngInject */
     constructor($scope: any, $injector: any, $location: any, linkSrv: any);
@@ -66,10 +74,14 @@ declare class SingleStatCtrl extends MetricsPanelCtrl {
     onDataError(err: any): void;
     onDataReceived(dataList: any): void;
     seriesHandler(seriesData: any): TimeSeries;
+    tableHandler(tableData: any): any[];
+    setTableColumnToSensibleDefault(tableData: any): void;
+    setTableValues(tableData: any, data: any): void;
     setColoring(options: any): void;
     invertColorOrder(): void;
     getDecimalsForValue(value: any): any;
     setValues(data: any): void;
+    setValueMapping(data: any): void;
     removeValueMap(map: any): void;
     addValueMap(): void;
     removeRangeMap(rangeMap: any): void;

@@ -30,8 +30,8 @@ var TimestampOperator = (function () {
     function TimestampOperator(scheduler) {
         this.scheduler = scheduler;
     }
-    TimestampOperator.prototype.call = function (observer) {
-        return new TimestampSubscriber(observer, this.scheduler);
+    TimestampOperator.prototype.call = function (observer, source) {
+        return source.subscribe(new TimestampSubscriber(observer, this.scheduler));
     };
     return TimestampOperator;
 }());

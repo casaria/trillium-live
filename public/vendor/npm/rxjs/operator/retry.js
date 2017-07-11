@@ -32,11 +32,16 @@ var RetryOperator = (function () {
         this.count = count;
         this.source = source;
     }
-    RetryOperator.prototype.call = function (subscriber) {
-        return new RetrySubscriber(subscriber, this.count, this.source);
+    RetryOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new RetrySubscriber(subscriber, this.count, this.source));
     };
     return RetryOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var RetrySubscriber = (function (_super) {
     __extends(RetrySubscriber, _super);
     function RetrySubscriber(destination, count, source) {
@@ -55,7 +60,7 @@ var RetrySubscriber = (function (_super) {
             }
             this.unsubscribe();
             this.isStopped = false;
-            this.isUnsubscribed = false;
+            this.closed = false;
             source.subscribe(this);
         }
     };

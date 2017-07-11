@@ -1,4 +1,4 @@
-/*! grafana - v3.1.0-1468321182 - 2016-07-12
- * Copyright (c) 2016 Torkel Ödegaard; Licensed Apache-2.0 */
+/*! grafana - v4.4.0 - 2017-07-04
+ * Copyright (c) 2017 Torkel Ödegaard; Licensed Apache-2.0 */
 
-System.register([],function(a){var b,c,d,e,f,g,h,i;return{setters:[],execute:function(){b=window,c=b.beforeEach,d=b.before,e=b.describe,f=b.it,g=b.sinon,h=b.expect,i={module:b.module,inject:b.inject},a("beforeEach",c),a("before",d),a("describe",e),a("it",f),a("sinon",g),a("expect",h),a("angularMocks",i)}}});
+System.register([],function(a,b){"use strict";var c,d,e,f,g,h,i,j;b&&b.id;return{setters:[],execute:function(){c=window,d=c.beforeEach,a("beforeEach",d),e=c.before,a("before",e),f=c.describe,a("describe",f),g=c.it,a("it",g),h=c.sinon,a("sinon",h),i=c.expect,a("expect",i),j={module:c.module,inject:c.inject},a("angularMocks",j)}}});

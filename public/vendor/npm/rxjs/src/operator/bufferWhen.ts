@@ -1,13 +1,13 @@
-import {Operator} from '../Operator';
-import {Subscriber} from '../Subscriber';
-import {Observable} from '../Observable';
-import {Subscription} from '../Subscription';
-import {tryCatch} from '../util/tryCatch';
-import {errorObject} from '../util/errorObject';
+import { Operator } from '../Operator';
+import { Subscriber } from '../Subscriber';
+import { Observable } from '../Observable';
+import { Subscription } from '../Subscription';
+import { tryCatch } from '../util/tryCatch';
+import { errorObject } from '../util/errorObject';
 
-import {OuterSubscriber} from '../OuterSubscriber';
-import {InnerSubscriber} from '../InnerSubscriber';
-import {subscribeToResult} from '../util/subscribeToResult';
+import { OuterSubscriber } from '../OuterSubscriber';
+import { InnerSubscriber } from '../InnerSubscriber';
+import { subscribeToResult } from '../util/subscribeToResult';
 
 /**
  * Buffers the source Observable values, using a factory function of closing
@@ -42,12 +42,8 @@ import {subscribeToResult} from '../util/subscribeToResult';
  * @method bufferWhen
  * @owner Observable
  */
-export function bufferWhen<T>(closingSelector: () => Observable<any>): Observable<T[]> {
+export function bufferWhen<T>(this: Observable<T>, closingSelector: () => Observable<any>): Observable<T[]> {
   return this.lift(new BufferWhenOperator<T>(closingSelector));
-}
-
-export interface BufferWhenSignature<T> {
-  (closingSelector: () => Observable<any>): Observable<T[]>;
 }
 
 class BufferWhenOperator<T> implements Operator<T, T[]> {
@@ -55,11 +51,16 @@ class BufferWhenOperator<T> implements Operator<T, T[]> {
   constructor(private closingSelector: () => Observable<any>) {
   }
 
-  call(subscriber: Subscriber<T[]>): Subscriber<T> {
-    return new BufferWhenSubscriber(subscriber, this.closingSelector);
+  call(subscriber: Subscriber<T[]>, source: any): any {
+    return source.subscribe(new BufferWhenSubscriber(subscriber, this.closingSelector));
   }
 }
 
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 class BufferWhenSubscriber<T> extends OuterSubscriber<T, any> {
   private buffer: T[];
   private subscribing: boolean = false;

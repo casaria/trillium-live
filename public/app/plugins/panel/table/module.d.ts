@@ -7,6 +7,7 @@ declare class TablePanelCtrl extends MetricsPanelCtrl {
     pageIndex: number;
     dataRaw: any;
     table: any;
+    renderer: any;
     panelDefaults: {
         targets: {}[];
         transform: string;
@@ -15,10 +16,12 @@ declare class TablePanelCtrl extends MetricsPanelCtrl {
         styles: ({
             type: string;
             pattern: string;
+            alias: string;
             dateFormat: string;
         } | {
             unit: string;
             type: string;
+            alias: string;
             decimals: number;
             colors: string[];
             colorMode: any;

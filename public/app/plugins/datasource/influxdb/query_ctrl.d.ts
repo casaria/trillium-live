@@ -10,6 +10,7 @@ export declare class InfluxQueryCtrl extends QueryCtrl {
     queryBuilder: any;
     groupBySegment: any;
     resultFormats: any[];
+    orderByTime: any[];
     policySegment: any;
     tagSegments: any[];
     selectMenu: any;
@@ -17,27 +18,25 @@ export declare class InfluxQueryCtrl extends QueryCtrl {
     removeTagFilterSegment: any;
     /** @ngInject **/
     constructor($scope: any, $injector: any, templateSrv: any, $q: any, uiSegmentSrv: any);
+    removeOrderByTime(): void;
     buildSelectMenu(): void;
     getGroupByOptions(): any;
     groupByAction(): void;
-    removeGroupByPart(part: any, index: any): void;
     addSelectPart(selectParts: any, cat: any, subitem: any): void;
-    removeSelectPart(selectParts: any, part: any): void;
-    selectPartUpdated(): void;
+    handleSelectPartEvent(selectParts: any, part: any, evt: any): any;
+    handleGroupByPartEvent(part: any, index: any, evt: any): any;
     fixTagSegments(): void;
     measurementChanged(): void;
     getPolicySegments(): any;
     policyChanged(): void;
     toggleEditorMode(): void;
-    getMeasurements(): any;
-    getPartOptions(part: any): any;
+    getMeasurements(measurementFilter: any): any;
     handleQueryError(err: any): any[];
     transformToSegments(addTemplateVars: any): (results: any) => any;
     getTagsOrValues(segment: any, index: any): any;
     getFieldSegments(): any;
-    setFill(fill: any): void;
     tagSegmentUpdated(segment: any, index: any): void;
     rebuildTargetTagConditions(): void;
-    getTagValueOperator(tagValue: any, tagOperator: any): string;
+    getTagValueOperator(tagValue: any, tagOperator: any): "=" | "=~";
     getCollapsedText(): any;
 }

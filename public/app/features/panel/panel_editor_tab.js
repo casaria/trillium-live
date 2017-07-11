@@ -1,4 +1,4 @@
-/*! grafana - v3.1.0-1468321182 - 2016-07-12
- * Copyright (c) 2016 Torkel Ödegaard; Licensed Apache-2.0 */
+/*! grafana - v4.4.0 - 2017-07-04
+ * Copyright (c) 2017 Torkel Ödegaard; Licensed Apache-2.0 */
 
-System.register(["angular"],function(a){function b(a){return a.create({scope:{ctrl:"=",editorTab:"=",index:"="},directive:function(a){var b=a.ctrl.pluginId,c=a.index;return Promise.resolve({name:"panel-editor-tab-"+b+c,fn:a.editorTab.directiveFn})}})}b.$inject=["dynamicDirectiveSrv"];var c,d;return{setters:[function(a){c=a}],execute:function(){d=c["default"].module("grafana.directives"),d.directive("panelEditorTab",b)}}});
+System.register(["angular"],function(a,b){"use strict";function c(a){return a.create({scope:{ctrl:"=",editorTab:"=",index:"="},directive:function(a){var b=a.ctrl.pluginId,c=a.index,d=function(){return a.editorTab.directiveFn()};return Promise.resolve({name:"panel-editor-tab-"+b+c,fn:d})}})}c.$inject=["dynamicDirectiveSrv"];var d,e;b&&b.id;return{setters:[function(a){d=a}],execute:function(){e=d.default.module("grafana.directives"),e.directive("panelEditorTab",c)}}});

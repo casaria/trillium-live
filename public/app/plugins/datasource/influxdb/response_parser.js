@@ -1,4 +1,4 @@
-/*! grafana - v3.1.0-1468321182 - 2016-07-12
- * Copyright (c) 2016 Torkel Ödegaard; Licensed Apache-2.0 */
+/*! grafana - v4.4.0 - 2017-07-04
+ * Copyright (c) 2017 Torkel Ödegaard; Licensed Apache-2.0 */
 
-System.register(["lodash"],function(a){function b(a,b){a[b]=b}var c,d;return{setters:[function(a){c=a}],execute:function(){d=function(){function a(){}return a.prototype.parse=function(a,d){if(!d||0===d.results.length)return[];var e=d.results[0];if(!e.series)return[];var f=a.toLowerCase().indexOf("show tag values")>=0,g={};return c["default"].each(e.series,function(a){c["default"].each(a.values,function(a){c["default"].isArray(a)?f?b(g,a[1]||a[0]):b(g,a[0]):b(g,a)})}),c["default"].map(g,function(a){return{text:a}})},a}(),a("default",d)}}});
+System.register(["lodash"],function(a,b){"use strict";function c(a,b){a[b]=b}var d,e;b&&b.id;return{setters:[function(a){d=a}],execute:function(){e=function(){function a(){}return a.prototype.parse=function(a,b){if(!b||0===b.results.length)return[];var e=b.results[0];if(!e.series)return[];var f=a.toLowerCase().indexOf("show tag values")>=0,g={};return d.default.each(e.series,function(a){d.default.each(a.values,function(a){d.default.isArray(a)?f?c(g,a[1]||a[0]):c(g,a[0]):c(g,a)})}),d.default.map(g,function(a){return{text:a}})},a}(),a("default",e)}}});

@@ -5,10 +5,11 @@ export declare class BackendSrv {
     private $rootScope;
     private $q;
     private $timeout;
+    private contextSrv;
     inFlightRequests: {};
     HTTP_REQUEST_CANCELLED: number;
     /** @ngInject */
-    constructor($http: any, alertSrv: any, $rootScope: any, $q: any, $timeout: any);
+    constructor($http: any, alertSrv: any, $rootScope: any, $q: any, $timeout: any, contextSrv: any);
     get(url: any, params?: any): any;
     delete(url: any): any;
     post(url: any, data: any): any;
@@ -16,6 +17,8 @@ export declare class BackendSrv {
     put(url: any, data: any): any;
     requestErrorHandler(err: any): void;
     request(options: any): any;
+    addCanceler(requestId: any, canceler: any): void;
+    resolveCancelerIfExists(requestId: any): void;
     datasourceRequest(options: any): any;
     loginPing(): any;
     search(query: any): any;

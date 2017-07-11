@@ -33,9 +33,9 @@ var SubscribeOnObservable = (function (_super) {
         if (scheduler === void 0) { scheduler = asap_1.asap; }
         return new SubscribeOnObservable(source, delay, scheduler);
     };
-    SubscribeOnObservable.dispatch = function (_a) {
-        var source = _a.source, subscriber = _a.subscriber;
-        return source.subscribe(subscriber);
+    SubscribeOnObservable.dispatch = function (arg) {
+        var source = arg.source, subscriber = arg.subscriber;
+        return this.add(source.subscribe(subscriber));
     };
     SubscribeOnObservable.prototype._subscribe = function (subscriber) {
         var delay = this.delayTime;

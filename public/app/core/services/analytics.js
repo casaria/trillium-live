@@ -1,4 +1,4 @@
-/*! grafana - v3.1.0-1468321182 - 2016-07-12
- * Copyright (c) 2016 Torkel Ödegaard; Licensed Apache-2.0 */
+/*! grafana - v4.4.0 - 2017-07-04
+ * Copyright (c) 2017 Torkel Ödegaard; Licensed Apache-2.0 */
 
-define(["angular","../core_module"],function(a,b){"use strict";b["default"].service("googleAnalyticsSrv",["$rootScope","$location",function(a,b){var c=!0;this.init=function(){a.$on("$viewContentLoaded",function(){return c?void(c=!1):void window.ga("send","pageview",{page:b.url()})})}}]).run(["googleAnalyticsSrv",function(a){window.ga&&a.init()}])});
+define(["angular","jquery","app/core/core_module","app/core/config"],function(a,b,c,d){"use strict";c.default.service("googleAnalyticsSrv",["$rootScope","$location",function(a,c){function e(){b.getScript("https://www.google-analytics.com/analytics.js");var a=window.ga=window.ga||function(){(a.q=a.q||[]).push(arguments)};return a.l=+new Date,a("create",d.googleAnalyticsId,"auto"),a}this.init=function(){a.$on("$viewContentLoaded",function(){var a={page:c.url()},b=window.ga||e();b("set",a),b("send","pageview")})}}]).run(["googleAnalyticsSrv",function(a){d.googleAnalyticsId&&a.init()}])});

@@ -7,8 +7,11 @@ export declare class ProfileCtrl {
     old_theme: any;
     orgs: any;
     userForm: any;
+    showOrgsList: boolean;
+    readonlyLoginFields: any;
+    navModel: any;
     /** @ngInject **/
-    constructor(backendSrv: any, contextSrv: any, $location: any);
+    constructor(backendSrv: any, contextSrv: any, $location: any, navModelSrv: any);
     getUser(): void;
     getUserOrgs(): void;
     setUsingOrg(org: any): void;

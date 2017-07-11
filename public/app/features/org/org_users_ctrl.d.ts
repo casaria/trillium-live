@@ -7,8 +7,10 @@ export declare class OrgUsersCtrl {
     users: any;
     pendingInvites: any;
     editor: any;
+    showInviteUI: boolean;
+    navModel: any;
     /** @ngInject */
-    constructor($scope: any, $http: any, backendSrv: any);
+    constructor($scope: any, $http: any, backendSrv: any, navModelSrv: any);
     get(): void;
     updateOrgUser(user: any): void;
     removeUser(user: any): void;

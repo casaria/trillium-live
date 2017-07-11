@@ -1,5 +1,5 @@
 {
-  "title": "Trillium BMS",
+  "title": "Grafana",
   "tags": [],
   "style": "dark",
   "timezone": "browser",
@@ -24,7 +24,7 @@
       ]
     },
     {
-      "title": "Welcome to Trillium",
+      "title": "Welcome to Grafana",
       "height": "210px",
       "collapse": false,
       "editable": true,
@@ -82,6 +82,9 @@
           "lines": true,
           "fill": 1,
           "linewidth": 2,
+          "dashes": false,
+          "dashLength": 10,
+          "spaceLength": 10,
           "points": false,
           "pointradius": 5,
           "bars": false,

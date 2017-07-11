@@ -1,4 +1,4 @@
-/*! grafana - v3.1.0-1468321182 - 2016-07-12
- * Copyright (c) 2016 Torkel Ödegaard; Licensed Apache-2.0 */
+/*! grafana - v4.4.0 - 2017-07-04
+ * Copyright (c) 2017 Torkel Ödegaard; Licensed Apache-2.0 */
 
-System.register(["app/core/core"],function(a){var b,c,d;return{setters:[function(a){b=a}],execute:function(){c=function(){function a(a){this.target=a}return a.prototype.subscribe=function(a){var c=b.liveSrv.subscribe(this.target.stream);return c.subscribe(function(a){console.log("grafana stream ds data!",a)})},a}(),d=function(){function a(){}return a.prototype.query=function(a){if(0===a.targets.length)return Promise.resolve({data:[]});var b=a.targets[0],d=new c(b);return Promise.resolve(d)},a}(),a("GrafanaStreamDS",d)}}});
+System.register(["app/core/core"],function(a,b){"use strict";var c,d,e;b&&b.id;return{setters:[function(a){c=a}],execute:function(){d=function(){function a(a){this.target=a}return a.prototype.subscribe=function(a){var b=c.liveSrv.subscribe(this.target.stream);return b.subscribe(function(a){console.log("grafana stream ds data!",a)})},a}(),e=function(){function a(){}return a.prototype.query=function(a){if(0===a.targets.length)return Promise.resolve({data:[]});var b=a.targets[0],c=new d(b);return Promise.resolve(c)},a}(),a("GrafanaStreamDS",e)}}});

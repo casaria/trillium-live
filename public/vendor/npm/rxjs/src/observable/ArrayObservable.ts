@@ -1,10 +1,10 @@
-import {Scheduler} from '../Scheduler';
-import {Observable} from '../Observable';
-import {ScalarObservable} from './ScalarObservable';
-import {EmptyObservable} from './EmptyObservable';
-import {Subscriber} from '../Subscriber';
-import {isScheduler} from '../util/isScheduler';
-import {TeardownLogic} from '../Subscription';
+import { IScheduler } from '../Scheduler';
+import { Observable } from '../Observable';
+import { ScalarObservable } from './ScalarObservable';
+import { EmptyObservable } from './EmptyObservable';
+import { Subscriber } from '../Subscriber';
+import { isScheduler } from '../util/isScheduler';
+import { TeardownLogic } from '../Subscription';
 
 /**
  * We need this JSDoc comment for affecting ESDoc.
@@ -13,19 +13,55 @@ import {TeardownLogic} from '../Subscription';
  */
 export class ArrayObservable<T> extends Observable<T> {
 
-  static create<T>(array: T[], scheduler?: Scheduler): Observable<T> {
+  static create<T>(array: T[], scheduler?: IScheduler): Observable<T> {
     return new ArrayObservable(array, scheduler);
   }
 
+  static of<T>(item1: T, scheduler?: IScheduler): Observable<T>;
+  static of<T>(item1: T, item2: T, scheduler?: IScheduler): Observable<T>;
+  static of<T>(item1: T, item2: T, item3: T, scheduler?: IScheduler): Observable<T>;
+  static of<T>(item1: T, item2: T, item3: T, item4: T, scheduler?: IScheduler): Observable<T>;
+  static of<T>(item1: T, item2: T, item3: T, item4: T, item5: T, scheduler?: IScheduler): Observable<T>;
+  static of<T>(item1: T, item2: T, item3: T, item4: T, item5: T, item6: T, scheduler?: IScheduler): Observable<T>;
+  static of<T>(...array: Array<T | IScheduler>): Observable<T>;
   /**
-   * @param array
-   * @return {any}
+   * Creates an Observable that emits some values you specify as arguments,
+   * immediately one after the other, and then emits a complete notification.
+   *
+   * <span class="informal">Emits the arguments you provide, then completes.
+   * </span>
+   *
+   * <img src="./img/of.png" width="100%">
+   *
+   * This static operator is useful for creating a simple Observable that only
+   * emits the arguments given, and the complete notification thereafter. It can
+   * be used for composing with other Observables, such as with {@link concat}.
+   * By default, it uses a `null` IScheduler, which means the `next`
+   * notifications are sent synchronously, although with a different IScheduler
+   * it is possible to determine when those notifications will be delivered.
+   *
+   * @example <caption>Emit 10, 20, 30, then 'a', 'b', 'c', then start ticking every second.</caption>
+   * var numbers = Rx.Observable.of(10, 20, 30);
+   * var letters = Rx.Observable.of('a', 'b', 'c');
+   * var interval = Rx.Observable.interval(1000);
+   * var result = numbers.concat(letters).concat(interval);
+   * result.subscribe(x => console.log(x));
+   *
+   * @see {@link create}
+   * @see {@link empty}
+   * @see {@link never}
+   * @see {@link throw}
+   *
+   * @param {...T} values Arguments that represent `next` values to be emitted.
+   * @param {Scheduler} [scheduler] A {@link IScheduler} to use for scheduling
+   * the emissions of the `next` notifications.
+   * @return {Observable<T>} An Observable that emits each given input value.
    * @static true
    * @name of
    * @owner Observable
    */
-  static of<T>(...array: Array<T | Scheduler>): Observable<T> {
-    let scheduler = <Scheduler>array[array.length - 1];
+  static of<T>(...array: Array<T | IScheduler>): Observable<T> {
+    let scheduler = <IScheduler>array[array.length - 1];
     if (isScheduler(scheduler)) {
       array.pop();
     } else {
@@ -53,7 +89,7 @@ export class ArrayObservable<T> extends Observable<T> {
 
     subscriber.next(array[index]);
 
-    if (subscriber.isUnsubscribed) {
+    if (subscriber.closed) {
       return;
     }
 
@@ -65,7 +101,7 @@ export class ArrayObservable<T> extends Observable<T> {
   // value used if Array has one value and _isScalar
   value: any;
 
-  constructor(public array: T[], public scheduler?: Scheduler) {
+  constructor(private array: T[], private scheduler?: IScheduler) {
     super();
     if (!scheduler && array.length === 1) {
       this._isScalar = true;
@@ -84,7 +120,7 @@ export class ArrayObservable<T> extends Observable<T> {
         array, index, count, subscriber
       });
     } else {
-      for (let i = 0; i < count && !subscriber.isUnsubscribed; i++) {
+      for (let i = 0; i < count && !subscriber.closed; i++) {
         subscriber.next(array[i]);
       }
       subscriber.complete();

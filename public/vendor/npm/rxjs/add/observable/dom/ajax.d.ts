@@ -1,6 +1,6 @@
-import { AjaxObservable } from '../../../observable/dom/AjaxObservable';
+import { AjaxCreationMethod } from '../../../observable/dom/AjaxObservable';
 declare module '../../../Observable' {
     namespace Observable {
-        let ajax: typeof AjaxObservable.create;
+        let ajax: AjaxCreationMethod;
     }
 }

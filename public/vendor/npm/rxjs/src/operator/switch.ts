@@ -1,27 +1,28 @@
-import {Operator} from '../Operator';
-import {Subscriber} from '../Subscriber';
-import {Subscription} from '../Subscription';
-import {OuterSubscriber} from '../OuterSubscriber';
-import {InnerSubscriber} from '../InnerSubscriber';
-import {subscribeToResult} from '../util/subscribeToResult';
+import { Observable } from '../Observable';
+import { Operator } from '../Operator';
+import { Subscriber } from '../Subscriber';
+import { Subscription } from '../Subscription';
+import { OuterSubscriber } from '../OuterSubscriber';
+import { InnerSubscriber } from '../InnerSubscriber';
+import { subscribeToResult } from '../util/subscribeToResult';
 
 /**
- * Converts a higher-order Observable into a first-order Observable by only the
- * most recently emitted of those nested Observables.
+ * Converts a higher-order Observable into a first-order Observable by
+ * subscribing to only the most recently emitted of those inner Observables.
  *
  * <span class="informal">Flattens an Observable-of-Observables by dropping the
- * previous nested Observable once a new one appears.</span>
+ * previous inner Observable once a new one appears.</span>
  *
  * <img src="./img/switch.png" width="100%">
  *
- * `switch` subscribes to an Observable that emits Observables,
- * also known as a higher-order Observable. Each time it observes one of these
- * emitted nested Observables, the output Observable begins emitting the items
- * emitted by that nested Observable. So far, it behaves like {@link mergeAll}.
- * However, when a new nested Observable is emitted, `switch` stops emitting
- * items from the earlier-emitted nested Observable and begins emitting items
- * from the new one. It continues to behave like this for subsequent nested
- * Observables.
+ * `switch` subscribes to an Observable that emits Observables, also known as a
+ * higher-order Observable. Each time it observes one of these emitted inner
+ * Observables, the output Observable subscribes to the inner Observable and
+ * begins emitting the items emitted by that. So far, it behaves
+ * like {@link mergeAll}. However, when a new inner Observable is emitted,
+ * `switch` unsubscribes from the earlier-emitted inner Observable and
+ * subscribes to the new inner Observable and begins emitting items from it. It
+ * continues to behave like this for subsequent inner Observables.
  *
  * @example <caption>Rerun an interval Observable on every click event</caption>
  * var clicks = Rx.Observable.fromEvent(document, 'click');
@@ -37,6 +38,8 @@ import {subscribeToResult} from '../util/subscribeToResult';
  * @see {@link concatAll}
  * @see {@link exhaust}
  * @see {@link mergeAll}
+ * @see {@link switchMap}
+ * @see {@link switchMapTo}
  * @see {@link zipAll}
  *
  * @return {Observable<T>} An Observable that emits the items emitted by the
@@ -45,20 +48,21 @@ import {subscribeToResult} from '../util/subscribeToResult';
  * @name switch
  * @owner Observable
  */
-export function _switch<T>(): T {
-  return this.lift(new SwitchOperator());
-}
-
-export interface SwitchSignature<T> {
-  (): T;
+export function _switch<T>(this: Observable<T>): T {
+  return <any>this.lift<any>(new SwitchOperator());
 }
 
 class SwitchOperator<T, R> implements Operator<T, R> {
-  call(subscriber: Subscriber<R>): Subscriber<T> {
-    return new SwitchSubscriber(subscriber);
+  call(subscriber: Subscriber<R>, source: any): any {
+    return source.subscribe(new SwitchSubscriber(subscriber));
   }
 }
 
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 class SwitchSubscriber<T, R> extends OuterSubscriber<T, R> {
   private active: number = 0;
   private hasCompleted: boolean = false;

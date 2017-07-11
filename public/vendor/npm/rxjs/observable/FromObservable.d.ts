@@ -1,4 +1,4 @@
-import { Scheduler } from '../Scheduler';
+import { IScheduler } from '../Scheduler';
 import { Observable, ObservableInput } from '../Observable';
 import { Subscriber } from '../Subscriber';
 /**
@@ -9,17 +9,8 @@ import { Subscriber } from '../Subscriber';
 export declare class FromObservable<T> extends Observable<T> {
     private ish;
     private scheduler;
-    constructor(ish: ObservableInput<T>, scheduler: Scheduler);
-    /**
-     * @param ish
-     * @param mapFnOrScheduler
-     * @param thisArg
-     * @param lastScheduler
-     * @return {any}
-     * @static true
-     * @name from
-     * @owner Observable
-     */
-    static create<T>(ish: any, mapFnOrScheduler?: Scheduler | ((x: any, y: number) => T), thisArg?: any, lastScheduler?: Scheduler): Observable<T>;
+    constructor(ish: ObservableInput<T>, scheduler?: IScheduler);
+    static create<T>(ish: ObservableInput<T>, scheduler?: IScheduler): Observable<T>;
+    static create<T, R>(ish: ArrayLike<T>, scheduler?: IScheduler): Observable<R>;
     protected _subscribe(subscriber: Subscriber<T>): any;
 }

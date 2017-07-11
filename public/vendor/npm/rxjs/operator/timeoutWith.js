@@ -8,6 +8,7 @@ var async_1 = require('../scheduler/async');
 var isDate_1 = require('../util/isDate');
 var OuterSubscriber_1 = require('../OuterSubscriber');
 var subscribeToResult_1 = require('../util/subscribeToResult');
+/* tslint:disable:max-line-length */
 /**
  * @param due
  * @param withObservable
@@ -30,11 +31,16 @@ var TimeoutWithOperator = (function () {
         this.withObservable = withObservable;
         this.scheduler = scheduler;
     }
-    TimeoutWithOperator.prototype.call = function (subscriber) {
-        return new TimeoutWithSubscriber(subscriber, this.absoluteTimeout, this.waitFor, this.withObservable, this.scheduler);
+    TimeoutWithOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new TimeoutWithSubscriber(subscriber, this.absoluteTimeout, this.waitFor, this.withObservable, this.scheduler));
     };
     return TimeoutWithOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var TimeoutWithSubscriber = (function (_super) {
     __extends(TimeoutWithSubscriber, _super);
     function TimeoutWithSubscriber(destination, absoluteTimeout, waitFor, withObservable, scheduler) {
@@ -94,7 +100,7 @@ var TimeoutWithSubscriber = (function (_super) {
         this._hasCompleted = true;
     };
     TimeoutWithSubscriber.prototype.handleTimeout = function () {
-        if (!this.isUnsubscribed) {
+        if (!this.closed) {
             var withObservable = this.withObservable;
             this.unsubscribe();
             this.destination.add(this.timeoutSubscription = subscribeToResult_1.subscribeToResult(this, withObservable));
