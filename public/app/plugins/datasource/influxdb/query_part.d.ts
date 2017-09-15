@@ -1,5 +1,5 @@
 /// <reference path="../../../../../public/app/headers/common.d.ts" />
-declare var _default: {
+declare const _default: {
     create: (part: any) => any;
     getCategories: () => {
         Aggregations: any[];

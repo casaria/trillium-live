@@ -13,12 +13,14 @@ export declare class VariableSrv {
     onDashboardRefresh(): any;
     processVariable(variable: any, queryParams: any): any;
     createVariableFromModel(model: any): any;
-    addVariable(model: any): any;
+    addVariable(variable: any): void;
+    removeVariable(variable: any): void;
     updateOptions(variable: any): any;
-    variableUpdated(variable: any): any;
+    variableUpdated(variable: any, emitChangeEvents?: any): any;
     selectOptionsForCurrentValue(variable: any): any;
     validateVariableSelectionState(variable: any): any;
     setOptionFromUrl(variable: any, urlValue: any): any;
     setOptionAsCurrent(variable: any, option: any): any;
     updateUrlParamsWithCurrentVariables(): void;
+    setAdhocFilter(options: any): void;
 }

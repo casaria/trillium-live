@@ -12,7 +12,6 @@ export declare class SubmenuCtrl {
     annotationStateChanged(): void;
     variableUpdated(variable: any): void;
     openEditView(editview: any): void;
-    exitBuildMode(): void;
 }
 export declare function submenuDirective(): {
     restrict: string;

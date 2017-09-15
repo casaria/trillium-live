@@ -1,0 +1,4 @@
+/*! grafana - v4.5.0-beta1 - 2017-09-05
+ * Copyright (c) 2017 Torkel Ödegaard; Licensed Apache-2.0 */
+
+System.register([],function(a,b){"use strict";var c;b&&b.id;return{setters:[],execute:function(){c=function(){function a(a){this.datasource=a,this.identifierRegexps=[/[\[\]a-zA-Z_0-9=]/]}return a.prototype.getCompletions=function(a,b,c,d,e){if("["===d){for(var f=[],g=0,h=["s","m","h"];g<h.length;g++)for(var i=h[g],j=0,k=[1,5,10,30];j<k.length;j++){var l=k[j];f.push({caption:l+i,value:"["+l+i,meta:"range vector"})}return void e(null,f)}var m=d;a.session.getLine(c.row);return this.datasource.performSuggestQuery(m).then(function(a){e(null,a.map(function(a){var b=a;return"("===d&&(b="("+a),{caption:a,value:b,meta:"metric"}}))})},a}(),a("PromCompleter",c)}}});

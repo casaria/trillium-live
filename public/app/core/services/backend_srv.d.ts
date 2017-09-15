@@ -6,8 +6,9 @@ export declare class BackendSrv {
     private $q;
     private $timeout;
     private contextSrv;
-    inFlightRequests: {};
-    HTTP_REQUEST_CANCELLED: number;
+    private inFlightRequests;
+    private HTTP_REQUEST_CANCELLED;
+    private noBackendCache;
     /** @ngInject */
     constructor($http: any, alertSrv: any, $rootScope: any, $q: any, $timeout: any, contextSrv: any);
     get(url: any, params?: any): any;
@@ -15,6 +16,7 @@ export declare class BackendSrv {
     post(url: any, data: any): any;
     patch(url: any, data: any): any;
     put(url: any, data: any): any;
+    withNoBackendCache(callback: any): any;
     requestErrorHandler(err: any): void;
     request(options: any): any;
     addCanceler(requestId: any, canceler: any): void;

@@ -3,13 +3,14 @@ export declare class AdHocFiltersCtrl {
     private uiSegmentSrv;
     private datasourceSrv;
     private $q;
-    private templateSrv;
+    private variableSrv;
+    private $scope;
     private $rootScope;
     segments: any;
     variable: any;
     removeTagFilterSegment: any;
     /** @ngInject */
-    constructor(uiSegmentSrv: any, datasourceSrv: any, $q: any, templateSrv: any, $rootScope: any);
+    constructor(uiSegmentSrv: any, datasourceSrv: any, $q: any, variableSrv: any, $scope: any, $rootScope: any);
     buildSegmentModel(): void;
     getOptions(segment: any, index: any): any;
     segmentChanged(segment: any, index: any): void;

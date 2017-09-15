@@ -23,6 +23,7 @@ export declare class DataSourceEditCtrl {
     initNewDatasourceModel(): void;
     loadDatasourceTypes(): any;
     getDatasourceById(id: any): void;
+    userChangedType(): void;
     typeChanged(): any;
     updateFrontendSettings(): any;
     testDatasource(): void;

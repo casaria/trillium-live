@@ -15,7 +15,6 @@ export declare class PanelCtrl {
     fullscreen: boolean;
     inspector: any;
     editModeInitiated: boolean;
-    editorHelpIndex: number;
     editMode: any;
     height: any;
     containerHeight: any;
@@ -41,14 +40,13 @@ export declare class PanelCtrl {
     otherPanelInFullscreenMode(): boolean;
     calculatePanelHeight(): void;
     render(payload?: any): void;
-    toggleEditorHelp(index: any): void;
     duplicate(): void;
     updateColumnSpan(span: any): void;
     removePanel(): void;
     editPanelJson(): void;
     replacePanel(newPanel: any, oldPanel: any): void;
     sharePanel(): void;
-    getInfoMode(): "" | "error" | "info" | "links";
+    getInfoMode(): "error" | "" | "info" | "links";
     getInfoContent(options: any): string;
     openInspector(): void;
 }
