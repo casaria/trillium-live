@@ -7,15 +7,20 @@ export declare class OrgUsersCtrl {
     users: any;
     pendingInvites: any;
     editor: any;
-    showInviteUI: boolean;
     navModel: any;
+    externalUserMngLinkUrl: string;
+    externalUserMngLinkName: string;
+    externalUserMngInfo: string;
+    addUsersBtnName: string;
     /** @ngInject */
-    constructor($scope: any, $http: any, backendSrv: any, navModelSrv: any);
+    constructor($scope: any, $http: any, backendSrv: any, navModelSrv: any, $sce: any);
+    getAddUserBtnName(): string;
     get(): void;
     updateOrgUser(user: any): void;
     removeUser(user: any): void;
     removeUserConfirmed(user: any): void;
     revokeInvite(invite: any, evt: any): void;
     copyInviteToClipboard(evt: any): void;
-    openInviteModal(): void;
+    getInviteUrl(invite: any): any;
+    openAddUsersView(): void;
 }

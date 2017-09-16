@@ -1,6 +1,6 @@
 /// <reference path="../../../../public/app/headers/common.d.ts" />
 import { QueryPartDef, QueryPart } from 'app/core/components/query_part/query_part';
-declare var _default: {
+declare const _default: {
     alertQueryDef: QueryPartDef;
     getStateDisplayModel: (state: any) => {
         text: string;

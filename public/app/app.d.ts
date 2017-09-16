@@ -16,5 +16,5 @@ export declare class GrafanaApp {
     useModule(module: any): any;
     init(): void;
 }
-declare var _default: GrafanaApp;
+declare const _default: GrafanaApp;
 export default _default;

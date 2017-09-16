@@ -1,8 +1,10 @@
 /// <reference path="../../../../public/app/headers/common.d.ts" />
 import { DashboardModel } from '../dashboard/model';
 export declare class MetricsTabCtrl {
-    private uiSegmentSrv;
+    private $sce;
     private datasourceSrv;
+    private backendSrv;
+    private $timeout;
     dsName: string;
     panel: any;
     panelCtrl: any;
@@ -12,8 +14,15 @@ export declare class MetricsTabCtrl {
     dashboard: DashboardModel;
     panelDsValue: any;
     addQueryDropdown: any;
+    queryTroubleshooterOpen: boolean;
+    helpOpen: boolean;
+    optionsOpen: boolean;
+    hasQueryHelp: boolean;
+    helpHtml: string;
+    queryOptions: any;
     /** @ngInject */
-    constructor($scope: any, uiSegmentSrv: any, datasourceSrv: any);
+    constructor($scope: any, $sce: any, datasourceSrv: any, backendSrv: any, $timeout: any);
+    updateDatasourceOptions(): void;
     getOptions(includeBuiltin: any): Promise<{
         value: any;
         text: any;
@@ -22,6 +31,9 @@ export declare class MetricsTabCtrl {
     datasourceChanged(option: any): void;
     addMixedQuery(option: any): void;
     addQuery(): void;
+    toggleHelp(): void;
+    toggleOptions(): void;
+    toggleQueryTroubleshooter(): void;
 }
 /** @ngInject **/
 export declare function metricsTabDirective(): {

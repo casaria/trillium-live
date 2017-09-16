@@ -5,7 +5,13 @@ declare function elasticHistogramToHeatmap(seriesList: any): {};
  * @param  {Object} buckets
  * @return {Array}          Array of "card" objects
  */
-declare function convertToCards(buckets: any): any[];
+declare function convertToCards(buckets: any): {
+    cards: any[];
+    cardStats: {
+        min: number;
+        max: number;
+    };
+};
 /**
  * Special method for log scales. When series converted into buckets with log scale,
  * for simplification, 0 values are converted into 0, not into -Infinity. On the other hand, we mean

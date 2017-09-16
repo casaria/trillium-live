@@ -6,6 +6,7 @@ export declare class QueryVariable implements Variable {
     private templateSrv;
     private variableSrv;
     private $q;
+    private timeSrv;
     datasource: any;
     query: any;
     regex: any;
@@ -42,7 +43,7 @@ export declare class QueryVariable implements Variable {
         tagValuesQuery: string;
     };
     /** @ngInject **/
-    constructor(model: any, datasourceSrv: any, templateSrv: any, variableSrv: any, $q: any);
+    constructor(model: any, datasourceSrv: any, templateSrv: any, variableSrv: any, $q: any, timeSrv: any);
     getSaveModel(): any;
     setValue(option: any): any;
     setValueFromUrl(urlValue: any): any;
@@ -51,6 +52,7 @@ export declare class QueryVariable implements Variable {
     updateTags(datasource: any): any;
     getValuesForTag(tagKey: any): any;
     updateOptionsFromMetricFindQuery(datasource: any): any;
+    metricFindQuery(datasource: any, query: any): any;
     addAllOption(): void;
     metricNamesToVariableValues(metricNames: any): any;
     sortVariableValues(options: any, sortOrder: any): any;

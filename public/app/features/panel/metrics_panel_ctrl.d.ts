@@ -12,7 +12,6 @@ declare class MetricsPanelCtrl extends PanelCtrl {
     templateSrv: any;
     timing: any;
     range: any;
-    rangeRaw: any;
     interval: any;
     intervalMs: any;
     resolution: any;

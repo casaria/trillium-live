@@ -29,6 +29,7 @@ export declare function queryTroubleshooter(): {
     controllerAs: string;
     scope: {
         panelCtrl: string;
+        isOpen: string;
     };
     link: (scope: any, elem: any, attrs: any, ctrl: any) => void;
 };

@@ -12,16 +12,16 @@ export declare class TimePickerCtrl {
     panel: any;
     absolute: any;
     timeRaw: any;
+    editTimeRaw: any;
     tooltip: string;
     rangeString: string;
     timeOptions: any;
     refresh: any;
-    isOpen: boolean;
     isUtc: boolean;
     firstDayOfWeek: number;
     /** @ngInject */
     constructor($scope: any, $rootScope: any, timeSrv: any);
-    init(): void;
+    onRefresh(): void;
     zoom(factor: any): void;
     move(direction: any): void;
     openDropdown(): void;

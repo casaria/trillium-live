@@ -2,8 +2,10 @@
 export declare class ExportDataModalCtrl {
     private $scope;
     private data;
+    private panel;
     asRows: Boolean;
     dateTimeFormat: String;
+    excel: false;
     /** @ngInject */
     constructor($scope: any);
     export(): void;
@@ -15,6 +17,7 @@ export declare function exportDataModal(): {
     controller: typeof ExportDataModalCtrl;
     controllerAs: string;
     scope: {
+        panel: string;
         data: string;
     };
     bindToController: boolean;
