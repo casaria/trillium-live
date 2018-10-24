@@ -1,12 +1,6 @@
-///<reference path="../../headers/common.d.ts" />
-
-import config from 'app/core/config';
-import _ from 'lodash';
-import $ from 'jquery';
 import coreModule from 'app/core/core_module';
-import Drop from 'tether-drop';
 
-var template = `
+const template = `
 <label for="check-{{ctrl.id}}" class="gf-form-label {{ctrl.labelClass}} pointer" ng-show="ctrl.label">
   {{ctrl.label}}
   <info-popover mode="right-normal" ng-if="ctrl.tooltip" position="top center">
@@ -37,7 +31,6 @@ export class SwitchCtrl {
       return this.onChange();
     });
   }
-
 }
 
 export function switchDirective() {
@@ -47,12 +40,12 @@ export function switchDirective() {
     controllerAs: 'ctrl',
     bindToController: true,
     scope: {
-      checked: "=",
-      label: "@",
-      labelClass: "@",
-      tooltip: "@",
-      switchClass: "@",
-      onChange: "&",
+      checked: '=',
+      label: '@',
+      labelClass: '@',
+      tooltip: '@',
+      switchClass: '@',
+      onChange: '&',
     },
     template: template,
   };

@@ -1,4 +1,32 @@
-<div class="modal-body" ng-controller="ShareModalCtrl" ng-init="init()"><div class="modal-header"><h2 class="modal-header-title">{{modalTitle}}</h2><ul class="gf-tabs"><li class="gf-tabs-item" ng-repeat="tab in tabs"><a class="gf-tabs-link" ng-click="editor.index = $index" ng-class="{active: editor.index === $index}">{{::tab.title}}</a></li></ul><a class="modal-header-close" ng-click="dismiss();"><i class="fa fa-remove"></i></a></div><div class="modal-content" ng-repeat="tab in tabs" ng-if="editor.index == $index"><div ng-include src="tab.src" class="share-modal-body"></div></div></div><script type="text/ng-template" id="shareEmbed.html"><div class="share-modal-header">
+<div class="modal-body" ng-controller="ShareModalCtrl" ng-init="init()">
+
+	<div class="modal-header">
+		<h2 class="modal-header-title">
+			<i class="fa fa-share-square-o"></i>
+			<span class="p-l-1">{{modalTitle}}</span>
+		</h2>
+
+		<ul class="gf-tabs">
+			<li class="gf-tabs-item" ng-repeat="tab in tabs">
+				<a class="gf-tabs-link" ng-click="editor.index = $index" ng-class="{active: editor.index === $index}">
+					{{::tab.title}}
+				</a>
+			</li>
+		</ul>
+
+		<a class="modal-header-close" ng-click="dismiss();">
+			<i class="fa fa-remove"></i>
+		</a>
+	</div>
+
+	<div class="modal-content" ng-repeat="tab in tabs" ng-if="editor.index == $index">
+		<div ng-include src="tab.src" class="share-modal-body"></div>
+	</div>
+
+</div>
+
+<script type="text/ng-template" id="shareEmbed.html">
+	<div class="share-modal-header">
 		<div class="share-modal-big-icon">
 			<i class="fa fa-code"></i>
 		</div>
@@ -16,7 +44,15 @@
 				</div>
 			</div>
 		</div>
-	</div></script><script type="text/ng-template" id="shareExport.html"><dash-export-modal></dash-export-modal></script><script type="text/ng-template" id="shareLinkOptions.html"><div class="gf-form-group">
+	</div>
+</script>
+
+<script type="text/ng-template" id="shareExport.html">
+	<dash-export-modal dismiss="dismiss()"></dash-export-modal>
+</script>
+
+<script type="text/ng-template" id="shareLinkOptions.html">
+	<div class="gf-form-group">
 		<gf-form-switch class="gf-form"
 			label="Current time range" label-class="width-12" switch-class="max-width-6"
 			checked="options.forCurrent" on-change="buildUrl()">
@@ -27,11 +63,15 @@
 		</gf-form-switch>
 		<div class="gf-form">
 			<span class="gf-form-label width-12">Theme</span>
-			<div class="gf-form-select-wrapper width-6">
+			<div class="gf-form-select-wrapper width-10">
 				<select class="gf-form-input" ng-model="options.theme" ng-options="f as f for f in ['current', 'dark', 'light']" ng-change="buildUrl()"></select>
 			</div>
 		</div>
-	</div></script><script type="text/ng-template" id="shareLink.html"><div class="share-modal-header">
+	</div>
+</script>
+
+<script type="text/ng-template" id="shareLink.html">
+	<div class="share-modal-header">
 		<div class="share-modal-big-icon">
 			<i class="fa fa-link"></i>
 		</div>
@@ -55,7 +95,11 @@
 			<div class="gf-form" ng-show="modeSharePanel">
 				<a href="{{imageUrl}}" target="_blank"><i class="fa fa-camera"></i> Direct link rendered image</a>
 			</div>
-		</div></script><script type="text/ng-template" id="shareSnapshot.html"><div class="ng-cloak" ng-cloak ng-controller="ShareSnapshotCtrl" ng-init="init()">
+		</div>
+</script>
+
+<script type="text/ng-template" id="shareSnapshot.html">
+	<div class="ng-cloak" ng-cloak ng-controller="ShareSnapshotCtrl" ng-init="init()">
 		<div class="share-modal-header">
 			<div class="share-modal-big-icon">
 				<i ng-if="loading" class="fa fa-spinner fa-spin"></i>
@@ -137,4 +181,5 @@
 		</div>
 	</div>
 
-</div></script>
+</div>
+</script>
